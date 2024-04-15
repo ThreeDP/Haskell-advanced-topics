@@ -85,3 +85,74 @@ ftFibonacci num = ftFibonacciAux num 0 1
 -- (\x -> \y -> x + y)
 -- use (\x -> \y -> x + y) 7 7
 
+-----------------------------------------------------------------
+-- Sets
+
+ftLstRev :: (Eq n, Num n) => n -> [n]
+ftLstRev 0 = []
+ftLstRev num = num : ftLstRev (num - 1)
+
+ftLstAux :: Int -> [Int] -> [Int]
+ftLstAux 0 lst = lst
+ftLstAux n lst = ftLstAux (n - 1) (n : lst)
+
+ftLst :: Int -> [Int]
+ftLst n = ftLstAux n []
+
+-- The pieces of a set are divide by
+-- head, tail, last and init.
+-- Consider the follow set:
+-- [1, 2, 3, 4, 5]
+-- Head = [1]
+-- Tail = [2, 3, 4, 5]
+-- Last = [5]
+-- Init = [1, 2, 3, 4]
+
+ftHead :: [Int] -> [Int]
+ftHead [] = []
+ftHead (x : xs) = [x]
+
+ftTail :: [Int] -> [Int]
+ftTail [] = []
+ftTail (x : xs) = xs
+
+ftLast :: [Int] -> [Int]
+ftLast [] = []
+ftLast [x] = [x]
+ftLast (x : xs) = ftLast(xs)
+
+ftInit :: [Int] -> [Int]
+ftInit [] = []
+ftInit [x] = []
+ftInit (x : xs) = x : ftInit xs
+
+ftLstLenAux :: [Int] -> Int -> Int
+ftLstLenAux [] size = size
+ftLstLenAux (x : xs) size = ftLstLenAux xs (size + 1) 
+
+ftLstLen :: [Int] -> Int
+ftLstLen lst = ftLstLenAux lst 0
+
+ftLstShow :: [Int] -> [Int]
+ftLstShow lst = lst
+
+ftRevertLstAux :: [Int] -> [Int] -> [Int]
+ftRevertLstAux [] new = new
+ftRevertLstAux (x : xs) new = ftRevertLstAux xs (x : new)
+
+ftRevertLst :: [Int] -> [Int]
+ftRevertLst lst = ftRevertLstAux lst []
+
+ftSelectLstItem :: (Integral n) => n -> [n] -> n
+ftSelectLstItem i [] = -1
+ftSelectLstItem 0 (x : xs) = x 
+ftSelectLstItem i (x : xs) = ftSelectLstItem (i - 1) xs
+
+
+ftLstAdd :: Int -> [Int] -> [Int]
+ftLstAdd n [] = n : []
+ftLstAdd n (x : xs) = x : ftLstAdd n xs
+
+ftSumLst :: [Int] -> Int
+ftSumLst [] = 0
+ftSumLst (x : xs) = x + ftSumLst xs
